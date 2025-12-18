@@ -17,20 +17,42 @@ public class VisitLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "visitor_id", nullable = false)
     @JsonIgnoreProperties("visitLogs")
     private Visitor visitor;
 
+    @Column(nullable = false, updatable = false)
     private LocalDateTime entryTime;
+
     private LocalDateTime exitTime;
+
+    @Column(nullable = false)
     private String purpose;
+
+    @Column(nullable = false)
     private String location;
 
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
-    public void prePersist() {
+    protected void prePersist() {
+        this.entryTime = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
+
+        if (purpose == null || purpose.isBlank()) {
+            throw new IllegalArgumentException("purpose is required");
+        }
+        if (location == null || location.isBlank()) {
+            throw new IllegalArgumentException("location is required");
+        }
+    }
+
+    @PreUpdate
+    protected void preUpdate() {
+        if (exitTime != null && exitTime.isBefore(entryTime)) {
+            throw new IllegalArgumentException("exitTime must be after entryTime");
+        }
     }
 }
