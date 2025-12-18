@@ -1,5 +1,31 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
-public class RiskRuleServiceImpl {
-    
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
+import org.springframework.stereotype.*;
+import java.util.*;
+
+@Service
+public class RiskRuleServiceImpl implements RiskRuleService {
+
+    private final RiskRuleRepository riskRuleRepository;
+
+    public RiskRuleServiceImpl(RiskRuleRepository riskRuleRepository) {
+        this.riskRuleRepository = riskRuleRepository;
+    }
+
+    @Override
+    public RiskRule createRule(RiskRule rule) {
+        return riskRuleRepository.save(rule);
+    }
+
+    @Override
+    public List<RiskRule> getAllRules() {
+        return riskRuleRepository.findAll();
+    }
+
+    @Override
+    public RiskRule getRule(Long id) {
+        return riskRuleRepository.findById(id).orElse(null);
+    }
 }
