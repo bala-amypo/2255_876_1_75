@@ -1,10 +1,14 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
 public class VisitLog {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private ManyToOne Visitor;
     private LocalDateTime entryTime;
