@@ -10,12 +10,14 @@ public class VisitLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
+    @Column(nullable = false)
     private String purpose;
+    @Column(nullable = false)
     private String location;
     public long getId() {
         return id;
@@ -62,5 +64,19 @@ public class VisitLog {
         this.location = location;
     }
     public VisitLog() {
+    }
+    @PrePersist
+    public void prePersist() {
+        this.entryTime = LocalDateTime.now();
+
+        if (purpose == null || purpose.isBlank()) {
+            throw new RuntimeException("purpose required");
+        }
+        if (location == null || location.isBlank()) {
+            throw new RuntimeException("location required");
+        }
+        if (exitTime != null && exitTime.isBefore(entryTime)) {
+            throw new RuntimeException("exitTime must be after entryTime");
+        }
     }
 }

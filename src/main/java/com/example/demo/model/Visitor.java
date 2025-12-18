@@ -18,20 +18,6 @@ public class Visitor {
     private String idProof;
     private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        if (fullName == null || fullName.isBlank()) {
-            throw new RuntimeException("fullName required");
-        }
-        if (phone == null || phone.isBlank()) {
-            throw new RuntimeException("phone required");
-        }
-        if (idProof == null || idProof.isBlank()) {
-            throw new RuntimeException("idProof required");
-        }
-        this.createdAt = LocalDateTime.now();
-    }
-    
     public long getId(){
         return id;
     }
@@ -77,6 +63,20 @@ public class Visitor {
         this.createdAt = createdAt;
     }
     public Visitor() {
+    }
+    
+    @PrePersist
+    public void prePersist() {
+        if (fullName == null || fullName.isBlank()) {
+            throw new RuntimeException("fullName required");
+        }
+        if (phone == null || phone.isBlank()) {
+            throw new RuntimeException("phone required");
+        }
+        if (idProof == null || idProof.isBlank()) {
+            throw new RuntimeException("idProof required");
+        }
+        this.createdAt = LocalDateTime.now();
     }
     
 }
