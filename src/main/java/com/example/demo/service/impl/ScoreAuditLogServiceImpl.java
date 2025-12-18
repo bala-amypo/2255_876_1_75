@@ -29,7 +29,7 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
                 .orElseThrow(() -> new RuntimeException("Rule not found"));
 
         log.setVisitor(visitor);
-        log.setRule(rule);
+        log.setAppliedRule(rule);
 
         return auditLogRepository.save(log);
     }
