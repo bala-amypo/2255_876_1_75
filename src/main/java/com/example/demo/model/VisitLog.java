@@ -19,7 +19,7 @@ public class VisitLog {
 
     @ManyToOne
     @JoinColumn(name = "visitor_id", nullable = false)
-    @JsonIgnoreProperties("visitLogs") // prevents infinite recursion
+    @JsonIgnoreProperties("visitLogs")
     private Visitor visitor;
 
     private LocalDateTime entryTime;
