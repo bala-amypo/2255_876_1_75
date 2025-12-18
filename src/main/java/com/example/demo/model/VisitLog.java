@@ -24,10 +24,10 @@ public class VisitLog {
         this.id = id;
     }
     public Visitor getVisitor() {
-        return Visitor;
+        return visitor;
     }
     public void setVisitor(Visitor visitor) {
-        Visitor = visitor;
+        this.visitor = visitor;
     }
     public LocalDateTime getEntryTime() {
         return entryTime;
@@ -55,7 +55,7 @@ public class VisitLog {
     }
     public VisitLog(long id, Visitor visitor, LocalDateTime entryTime, LocalDateTime exitTime, String purpose, String location) {
         this.id = id;
-        Visitor = visitor;
+        this.visitor = visitor;
         this.entryTime = entryTime;
         this.exitTime = exitTime;
         this.purpose = purpose;
