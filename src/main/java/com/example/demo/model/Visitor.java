@@ -42,5 +42,4 @@ public class Visitor {
         }
         this.createdAt = LocalDateTime.now();
     }
-
 }
