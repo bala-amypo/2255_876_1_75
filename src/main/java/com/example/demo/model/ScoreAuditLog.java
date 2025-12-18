@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "score_audit_logs")
 public class ScoreAuditLog {
 
     @Id
