@@ -10,7 +10,9 @@ public class VisitLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private ManyToOne Visitor;
+    @ManyToOne
+    @JoinColumn(name = "visitor_id", nullable = false)
+    private Visitor visitor;
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
     private String purpose;
@@ -21,10 +23,10 @@ public class VisitLog {
     public void setId(long id) {
         this.id = id;
     }
-    public ManyToOne getVisitor() {
+    public Visitor getVisitor() {
         return Visitor;
     }
-    public void setVisitor(ManyToOne visitor) {
+    public void setVisitor(Visitor visitor) {
         Visitor = visitor;
     }
     public LocalDateTime getEntryTime() {
@@ -51,7 +53,7 @@ public class VisitLog {
     public void setLocation(String location) {
         this.location = location;
     }
-    public VisitLog(long id, ManyToOne visitor, LocalDateTime entryTime, LocalDateTime exitTime, String purpose, String location) {
+    public VisitLog(long id, Visitor visitor, LocalDateTime entryTime, LocalDateTime exitTime, String purpose, String location) {
         this.id = id;
         Visitor = visitor;
         this.entryTime = entryTime;
