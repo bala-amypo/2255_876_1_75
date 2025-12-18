@@ -1,8 +1,9 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Getter
@@ -16,32 +17,20 @@ public class VisitLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "visitor_id", nullable = false)
+    @JsonIgnoreProperties("visitLogs") // prevents infinite recursion
     private Visitor visitor;
 
     private LocalDateTime entryTime;
-
     private LocalDateTime exitTime;
-
-    @Column(nullable = false)
     private String purpose;
-
-    @Column(nullable = false)
     private String location;
+
+    private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist() {
-        this.entryTime = LocalDateTime.now();
-
-        if (purpose == null || purpose.isBlank()) {
-            throw new RuntimeException("purpose required");
-        }
-        if (location == null || location.isBlank()) {
-            throw new RuntimeException("location required");
-        }
-        if (exitTime != null && exitTime.isBefore(entryTime)) {
-            throw new RuntimeException("exitTime must be after entryTime");
-        }
+        this.createdAt = LocalDateTime.now();
     }
 }
