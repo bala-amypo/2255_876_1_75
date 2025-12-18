@@ -29,7 +29,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
         RiskScore score = new RiskScore();
         score.setVisitor(visitor);
-        score.setScore(scoreValue);
+        score.setTotalScore(scoreValue);
 
         return riskScoreRepository.save(score);
     }
