@@ -18,6 +18,7 @@ public class RiskScore {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "visitor_id", nullable = false, unique = true)
+    @JsonIgnoreProperties({"visitLogs"})
     private Visitor visitor;
 
     private int totalScore;
