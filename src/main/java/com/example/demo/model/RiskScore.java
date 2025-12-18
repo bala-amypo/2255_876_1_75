@@ -5,22 +5,47 @@ import jakarta.persistence.*;
 
 @Entity
 public class RiskScore {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @OneToOne
-    @JoinColumn(name = "visitor_id", nullable = false)
+    private Long id;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "visitor_id", nullable = false, unique = true)
     private Visitor visitor;
+
     private int totalScore;
+
+    @Column(nullable = false)
     private String riskLevel;
+
     private LocalDateTime evaluatedAt;
-    
-    public long getId() {
-        return id;
+
+    public RiskScore() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public RiskScore(Visitor visitor, int totalScore, String riskLevel) {
+        this.visitor = visitor;
+        this.totalScore = totalScore;
+        this.riskLevel = riskLevel;
+    }
+
+    @PrePersist
+    protected void prePersist() {
+        if (visitor == null) {
+            throw new RuntimeException("visitor required");
+        }
+        if (totalScore < 0) {
+            throw new RuntimeException("totalScore cannot be negative");
+        }
+        if (riskLevel == null || riskLevel.isBlank()) {
+            throw new RuntimeException("riskLevel required");
+        }
+        this.evaluatedAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Visitor getVisitor() {
@@ -49,20 +74,5 @@ public class RiskScore {
 
     public LocalDateTime getEvaluatedAt() {
         return evaluatedAt;
-    }
-
-    public void setEvaluatedAt(LocalDateTime evaluatedAt) {
-        this.evaluatedAt = evaluatedAt;
-    }
-
-    public RiskScore(long id, Visitor visitor, int totalScore, String riskLevel, LocalDateTime evaluatedAt) {
-        this.id = id;
-        this.visitor = visitor;
-        this.totalScore = totalScore;
-        this.riskLevel = riskLevel;
-        this.evaluatedAt = evaluatedAt;
-    }
-
-    public RiskScore() {
     }
 }
