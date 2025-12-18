@@ -25,7 +25,6 @@ public class RiskScoreServiceImpl implements RiskScoreService {
             return null;
         }
 
-        // Simple dummy evaluation logic (can be replaced later)
         int scoreValue = 50;
 
         RiskScore score = new RiskScore();
