@@ -9,12 +9,29 @@ public class Visitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String fullName;
     private String email;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String idProof;
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void prePersist() {
+        if (fullName == null || fullName.isBlank()) {
+            throw new RuntimeException("fullName required");
+        }
+        if (phone == null || phone.isBlank()) {
+            throw new RuntimeException("phone required");
+        }
+        if (idProof == null || idProof.isBlank()) {
+            throw new RuntimeException("idProof required");
+        }
+        this.createdAt = LocalDateTime.now();
+    }
+    
     public long getId(){
         return id;
     }
