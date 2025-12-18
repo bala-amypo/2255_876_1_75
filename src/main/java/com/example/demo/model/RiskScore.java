@@ -8,59 +8,61 @@ public class RiskScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
-    @ManyToOne
-    @JoinColumn(name = "riskrule_id", nullable = false)
-    private RiskRule appliedRule;
-    private int scoreChange;
-    private String reason;
-    private LocalDateTime loggedAt;
+    private int totalScore;
+    private String riskLevel;
+    private LocalDateTime evaluatedAt;
+    
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
+
     public Visitor getVisitor() {
         return visitor;
     }
+
     public void setVisitor(Visitor visitor) {
         this.visitor = visitor;
     }
-    public RiskRule getAppliedRule() {
-        return appliedRule;
+
+    public int getTotalScore() {
+        return totalScore;
     }
-    public void setAppliedRule(RiskRule appliedRule) {
-        this.appliedRule = appliedRule;
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
-    public int getScoreChange() {
-        return scoreChange;
+
+    public String getRiskLevel() {
+        return riskLevel;
     }
-    public void setScoreChange(int scoreChange) {
-        this.scoreChange = scoreChange;
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
     }
-    public String getReason() {
-        return reason;
+
+    public LocalDateTime getEvaluatedAt() {
+        return evaluatedAt;
     }
-    public void setReason(String reason) {
-        this.reason = reason;
+
+    public void setEvaluatedAt(LocalDateTime evaluatedAt) {
+        this.evaluatedAt = evaluatedAt;
     }
-    public LocalDateTime getLoggedAt() {
-        return loggedAt;
-    }
-    public void setLoggedAt(LocalDateTime loggedAt) {
-        this.loggedAt = loggedAt;
-    }
-    public RiskScore(long id, Visitor visitor, RiskRule appliedRule, int scoreChange, String reason, LocalDateTime loggedAt) {
+
+    public RiskScore(long id, Visitor visitor, int totalScore, String riskLevel, LocalDateTime evaluatedAt) {
         this.id = id;
         this.visitor = visitor;
-        this.appliedRule = appliedRule;
-        this.scoreChange = scoreChange;
-        this.reason = reason;
-        this.loggedAt = loggedAt;
+        this.totalScore = totalScore;
+        this.riskLevel = riskLevel;
+        this.evaluatedAt = evaluatedAt;
     }
+
     public RiskScore() {
     }
 }
