@@ -1,36 +1,32 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.*;
-import com.example.demo.repository.*;
-import org.springframework.http.*;
+import com.example.demo.service.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/visitors")
 public class VisitorController {
 
-    private final VisitorRepository visitorRepository;
+    private final VisitorService visitorService;
 
-    public VisitorController(VisitorRepository visitorRepository) {
-        this.visitorRepository = visitorRepository;
+    public VisitorController(VisitorService visitorService) {
+        this.visitorService = visitorService;
     }
 
     @PostMapping
     public Visitor createVisitor(@RequestBody Visitor visitor) {
-        return visitorRepository.save(visitor);
+        return visitorService.createVisitor(visitor);
     }
 
     @GetMapping
     public List<Visitor> getAllVisitors() {
-        return visitorRepository.findAll();
+        return visitorService.getAllVisitors();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Visitor> getVisitorById(@PathVariable Long id) {
-        Optional<Visitor> visitor = visitorRepository.findById(id);
-        return visitor.map(ResponseEntity::ok)
-                      .orElseGet(() -> ResponseEntity.notFound().build());
+    public Visitor getVisitorById(@PathVariable Long id) {
+        return visitorService.getVisitor(id);
     }
 }
