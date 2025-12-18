@@ -2,8 +2,10 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
+@Builder
 public class RiskScore {
 
     @Id
