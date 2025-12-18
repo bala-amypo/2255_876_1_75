@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
+@Entity
 public class Visitor {
 
     @Id
