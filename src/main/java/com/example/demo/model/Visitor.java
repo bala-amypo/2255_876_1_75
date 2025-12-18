@@ -50,5 +50,15 @@ public class Visitor {
     public void setCreatedAt(LocalDateTime createdAt){
         this.createdAt = createdAt;
     }
+    public Visitor(long id, String fullName, String email, String phone, String idProof, LocalDateTime createdAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.idProof = idProof;
+        this.createdAt = createdAt;
+    }
+    public Visitor() {
+    }
     
 }
