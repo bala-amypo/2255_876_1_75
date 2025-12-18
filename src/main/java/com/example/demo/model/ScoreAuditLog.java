@@ -2,9 +2,13 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ScoreAuditLog {
 
@@ -27,16 +31,6 @@ public class ScoreAuditLog {
 
     private LocalDateTime loggedAt;
 
-    public ScoreAuditLog() {
-    }
-
-    public ScoreAuditLog(Visitor visitor, RiskRule appliedRule, int scoreChange, String reason) {
-        this.visitor = visitor;
-        this.appliedRule = appliedRule;
-        this.scoreChange = scoreChange;
-        this.reason = reason;
-    }
-
     @PrePersist
     protected void prePersist() {
         if (visitor == null) {
@@ -52,45 +46,5 @@ public class ScoreAuditLog {
             throw new RuntimeException("reason required");
         }
         this.loggedAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Visitor getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
-
-    public RiskRule getAppliedRule() {
-        return appliedRule;
-    }
-
-    public void setAppliedRule(RiskRule appliedRule) {
-        this.appliedRule = appliedRule;
-    }
-
-    public int getScoreChange() {
-        return scoreChange;
-    }
-
-    public void setScoreChange(int scoreChange) {
-        this.scoreChange = scoreChange;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public LocalDateTime getLoggedAt() {
-        return loggedAt;
     }
 }

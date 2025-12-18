@@ -2,9 +2,13 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class RiskRule {
 
@@ -24,16 +28,6 @@ public class RiskRule {
 
     private LocalDateTime createdAt;
 
-    public RiskRule() {
-    }
-
-    public RiskRule(String ruleName, String ruleType, int threshold, int scoreImpact) {
-        this.ruleName = ruleName;
-        this.ruleType = ruleType;
-        this.threshold = threshold;
-        this.scoreImpact = scoreImpact;
-    }
-
     @PrePersist
     protected void prePersist() {
         if (ruleName == null || ruleName.isBlank()) {
@@ -49,45 +43,5 @@ public class RiskRule {
             throw new RuntimeException("scoreImpact cannot be 0");
         }
         this.createdAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getRuleName() {
-        return ruleName;
-    }
-
-    public void setRuleName(String ruleName) {
-        this.ruleName = ruleName;
-    }
-
-    public String getRuleType() {
-        return ruleType;
-    }
-
-    public void setRuleType(String ruleType) {
-        this.ruleType = ruleType;
-    }
-
-    public int getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(int threshold) {
-        this.threshold = threshold;
-    }
-
-    public int getScoreImpact() {
-        return scoreImpact;
-    }
-
-    public void setScoreImpact(int scoreImpact) {
-        this.scoreImpact = scoreImpact;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 }

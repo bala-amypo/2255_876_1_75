@@ -2,9 +2,13 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class RiskScore {
 
@@ -23,15 +27,6 @@ public class RiskScore {
 
     private LocalDateTime evaluatedAt;
 
-    public RiskScore() {
-    }
-
-    public RiskScore(Visitor visitor, int totalScore, String riskLevel) {
-        this.visitor = visitor;
-        this.totalScore = totalScore;
-        this.riskLevel = riskLevel;
-    }
-
     @PrePersist
     protected void prePersist() {
         if (visitor == null) {
@@ -46,35 +41,4 @@ public class RiskScore {
         this.evaluatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Visitor getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
-
-    public int getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
-    }
-
-    public String getRiskLevel() {
-        return riskLevel;
-    }
-
-    public void setRiskLevel(String riskLevel) {
-        this.riskLevel = riskLevel;
-    }
-
-    public LocalDateTime getEvaluatedAt() {
-        return evaluatedAt;
-    }
 }
