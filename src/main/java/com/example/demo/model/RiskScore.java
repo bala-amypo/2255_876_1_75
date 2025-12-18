@@ -3,6 +3,8 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Getter
