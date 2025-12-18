@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 public class Visitor {
@@ -28,19 +29,26 @@ public class Visitor {
     public String getEmail(){
         return email;
     }
-    public void setemail(String email){
+    public void setEmail(String email){
         this.email = email;
     }
-    public String getFullName(){
-        return fullName;
+    public String getPhone(){
+        return phone;
     }
-    public void setFullName(String fullName){
-        this.fullName = fullName;
+    public void setPhone(String phone){
+        this.phone = phone;
     }
-    public String getFullName(){
-        return fullName;
+    public String getIdProof(){
+        return idProof;
     }
-    public void setFullName(String fullName){
-        this.fullName = fullName;
+    public void setIdProof(String idProof){
+        this.idProof = idProof;
     }
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt = createdAt;
+    }
+    
 }
