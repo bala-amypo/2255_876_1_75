@@ -30,7 +30,7 @@ public class VisitLogController {
     }
 
     @GetMapping("/visitor/{visitorId}")
-    public ResponseEntity<List<VisitLog>> ListByVisitor(@PathVariable Long visitorId) {
+    public ResponseEntity<List<VisitLog>> listByVisitor(@PathVariable Long visitorId) {
         List<VisitLog> logs = visitLogService.getLogsByVisitor(visitorId);
         return ResponseEntity.ok(logs);
     }
