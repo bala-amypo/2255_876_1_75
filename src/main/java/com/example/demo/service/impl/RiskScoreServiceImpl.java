@@ -35,6 +35,11 @@ public class RiskScoreServiceImpl implements RiskScoreService {
             score.setTotalScore(scoreValue);
             score.setRiskLevel(RiskLevelUtils.determineRiskLevel(scoreValue));
 
+            // Apply a RiskRule (example: first active rule)
+            RiskRule appliedRule = riskRuleRepository.findAll().stream().findFirst()
+                    .orElseThrow(() -> new RuntimeException("No RiskRule found"));
+            score.setRiskRule(appliedRule);
+
             return riskScoreRepository.save(score);
         });
     }
