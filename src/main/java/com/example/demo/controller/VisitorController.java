@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.*;
 import com.example.demo.service.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -17,7 +18,7 @@ public class VisitorController {
 
     @PostMapping
     public ResponseEntity<Visitor> create(@RequestBody Visitor visitor) {
-        return visitorService.createVisitor(visitor);
+        return ResponseEntity.ok(visitorService.createVisitor(visitor));
     }
 
     @GetMapping("/{id}")
