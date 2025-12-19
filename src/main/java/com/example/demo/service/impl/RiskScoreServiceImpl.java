@@ -40,7 +40,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
     @Override
     public RiskScore getScoreForVisitor(Long visitorId) {
-        return riskScoreRepository.findByVisitorId(visitorId);
+        return riskScoreRepository.findByVisitorId(visitorId).orElse(null);
     }
 
     @Override
