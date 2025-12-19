@@ -16,17 +16,17 @@ public class VisitorController {
     }
 
     @PostMapping
-    public Visitor createVisitor(@RequestBody Visitor visitor) {
+    public Visitor create(@RequestBody Visitor visitor) {
         return visitorService.createVisitor(visitor);
     }
 
     @GetMapping
-    public List<Visitor> getAllVisitors() {
+    public List<Visitor> getAll() {
         return visitorService.getAllVisitors();
     }
 
     @GetMapping("/{id}")
-    public Visitor getVisitorById(@PathVariable Long id) {
+    public Visitor get(@PathVariable Long id) {
         return visitorService.getVisitor(id);
     }
 }
