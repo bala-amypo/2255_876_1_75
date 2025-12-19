@@ -25,9 +25,9 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
 
-        RiskScore existing = riskScoreRepository.findByVisitorId(visitorId);
-        if (existing != null) {
-            return existing;
+        Optional<RiskScore> existing = riskScoreRepository.findByVisitorId(visitorId);
+        if (existing.isPresent()) {
+            return existing.get();
         }
 
         int scoreValue = 50;

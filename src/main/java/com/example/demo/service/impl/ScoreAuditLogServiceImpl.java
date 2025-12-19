@@ -5,6 +5,8 @@ import com.example.demo.repository.*;
 import com.example.demo.service.*;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import com.example.demo.exception.ResourceNotFoundException;
+
 
 @Service
 public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
