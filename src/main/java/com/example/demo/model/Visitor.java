@@ -3,6 +3,9 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -28,6 +31,19 @@ public class Visitor {
     private String idProof;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "visitor")
+    @JsonIgnore
+    private List<VisitLog> visitLogs;
+
+    @OneToOne(mappedBy = "visitor")
+    @JsonIgnore
+    private RiskScore riskScore;
+
+    @OneToMany(mappedBy = "visitor")
+    @JsonIgnore
+    private List<ScoreAuditLog> scoreAuditLogs;
+
 
     @PrePersist
     public void prePersist() {

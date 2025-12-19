@@ -20,10 +20,10 @@ public class VisitLogServiceImpl implements VisitLogService {
     public VisitLog createVisitLog(Long visitorId, VisitLog log) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
         if (visitor != null) {
-            log.setVisitor(visitor); // attach existing visitor
+            log.setVisitor(visitor); 
             return visitLogRepository.save(log);
         }
-        return null; // or throw exception if visitor not found
+        return null;
     }
 
     @Override
