@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.*;
-import com.example.demo.service.*;
+import com.example.demo.model.RiskScore;
+import com.example.demo.service.RiskScoreService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 import java.util.*;
 
 @RestController
@@ -16,17 +17,23 @@ public class RiskScoreController {
     }
 
     @PostMapping("/evaluate/{visitorId}")
-    public RiskScore evaluateVisitor(@PathVariable Long visitorId) {
-        return riskScoreService.evaluateVisitor(visitorId);
+    public ResponseEntity<RiskScore> evaluate(@PathVariable Long visitorId) {
+        return ResponseEntity.ok(
+                riskScoreService.evaluateVisitor(visitorId)
+        );
     }
 
     @GetMapping("/{visitorId}")
-    public RiskScore getScoreForVisitor(@PathVariable Long visitorId) {
-        return riskScoreService.getScoreForVisitor(visitorId);
+    public ResponseEntity<RiskScore> get(@PathVariable Long visitorId) {
+        return ResponseEntity.ok(
+                riskScoreService.getScoreForVisitor(visitorId)
+        );
     }
 
     @GetMapping
-    public List<RiskScore> getAllScores() {
-        return riskScoreService.getAllScores();
+    public ResponseEntity<List<RiskScore>> all() {
+        return ResponseEntity.ok(
+                riskScoreService.getAllScores()
+        );
     }
 }
