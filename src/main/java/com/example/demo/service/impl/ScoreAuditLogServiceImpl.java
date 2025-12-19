@@ -28,6 +28,14 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
         RiskRule rule = ruleRepository.findById(ruleId)
                 .orElseThrow(() -> new RuntimeException("Rule not found"));
 
+        if (log.getReason() == null || log.getReason().isBlank()) {
+            throw new IllegalArgumentException("reason required");
+        }
+
+        if (log.getScoreChange() < 0) {
+            throw new IllegalArgumentException("scoreChange must be >= 0");
+        }
+
         log.setVisitor(visitor);
         log.setAppliedRule(rule);
 

@@ -30,8 +30,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         RiskScore score = new RiskScore();
         score.setVisitor(visitor);
         score.setTotalScore(scoreValue);
-        score.setRiskLevel("MEDIUM");
-
+        score.setRiskLevel(RiskLevelUtils.determineRiskLevel(scoreValue));
 
         return riskScoreRepository.save(score);
     }
