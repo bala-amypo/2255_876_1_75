@@ -21,7 +21,7 @@ public class ScoreAuditLog {
     private Visitor visitor;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "riskrule_id", nullable = false)
+    @JoinColumn(name = "riskrule_id", nullable = true)
     private RiskRule appliedRule;
 
     private int scoreChange;
