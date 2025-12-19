@@ -16,8 +16,7 @@ public class VisitLogServiceImpl implements VisitLogService {
     private final VisitLogRepository visitLogRepository;
     private final VisitorRepository visitorRepository;
 
-    public VisitLogServiceImpl(VisitLogRepository visitLogRepository,
-                               VisitorRepository visitorRepository) {
+    public VisitLogServiceImpl(VisitLogRepository visitLogRepository, VisitorRepository visitorRepository) {
         this.visitLogRepository = visitLogRepository;
         this.visitorRepository = visitorRepository;
     }
@@ -38,7 +37,6 @@ public class VisitLogServiceImpl implements VisitLogService {
 
     @Override
     public List<VisitLog> allByVisitor(Long visitorId) {
-        return visitLogRepository.findByVisitorSince(visitorId, 
-                java.time.LocalDateTime.MIN);
+        return visitLogRepository.findByVisitorId(visitorId);
     }
 }
