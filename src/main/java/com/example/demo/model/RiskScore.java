@@ -23,7 +23,7 @@ public class RiskScore {
     @JsonIgnoreProperties({"visitLogs"})
     private Visitor visitor;
 
-    private int totalScore;
+    private Integer totalScore;
 
     @Column(nullable = false)
     private String riskLevel;

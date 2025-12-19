@@ -22,9 +22,9 @@ public class RiskRule {
     @Column(nullable = false)
     private String ruleType;
 
-    private int threshold;
+    private Integer threshold;
 
-    private int scoreImpact;
+    private Integer scoreImpact;
 
     private LocalDateTime createdAt;
 

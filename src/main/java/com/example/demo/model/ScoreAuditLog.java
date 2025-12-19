@@ -24,7 +24,7 @@ public class ScoreAuditLog {
     @JoinColumn(name = "riskrule_id", nullable = true)
     private RiskRule appliedRule;
 
-    private int scoreChange;
+    private Integer scoreChange;
 
     @Column(nullable = false)
     private String reason;
