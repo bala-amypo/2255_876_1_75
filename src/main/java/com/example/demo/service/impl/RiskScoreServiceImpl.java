@@ -5,6 +5,8 @@ import com.example.demo.repository.*;
 import com.example.demo.service.*;
 import org.springframework.stereotype.*;
 import java.util.*;
+import com.example.demo.util.RiskLevelUtils;
+
 
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
