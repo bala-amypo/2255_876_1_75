@@ -36,7 +36,7 @@ public class RiskRule {
         if (ruleType == null || ruleType.isBlank()) {
             throw new RuntimeException("ruleType required");
         }
-        if (threshold <= 0) {
+        if (threshold < 0) {
             throw new RuntimeException("threshold must be greater than 0");
         }
         if (scoreImpact == 0) {

@@ -27,6 +27,7 @@ public class RiskRuleServiceImpl implements RiskRuleService {
 
     @Override
     public RiskRule getRule(Long id) {
-        return riskRuleRepository.findById(id).orElse(null);
+        return riskRuleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("RiskRule not found"));
     }
 }
