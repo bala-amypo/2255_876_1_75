@@ -3,24 +3,23 @@ package com.example.demo.service.impl;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
-import org.springframework.stereotype.*;
-import java.util.*;
 import com.example.demo.util.RiskLevelUtils;
-
+import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
 
     private final RiskScoreRepository riskScoreRepository;
     private final VisitorRepository visitorRepository;
-    private final RiskRuleRepository riskRulerRepository;
+    private final RiskRuleRepository riskRuleRepository;
 
     public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,
                                 VisitorRepository visitorRepository,
-                                RiskRuleRepository riskRulerRepository) {
+                                RiskRuleRepository riskRuleRepository) {
         this.riskScoreRepository = riskScoreRepository;
         this.visitorRepository = visitorRepository;
-        this.riskRuleRepository = riskRulerRepository;
+        this.riskRuleRepository = riskRuleRepository;
     }
 
     @Override
@@ -28,22 +27,16 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
 
-        Optional<RiskScore> existing = riskScoreRepository.findByVisitorId(visitorId);
-        if (existing.isPresent()) {
-            return existing.get();
-        }
+        return riskScoreRepository.findByVisitorId(visitorId).orElseGet(() -> {
+            int scoreValue = 50;
 
-        int scoreValue = 50;
+            RiskScore score = new RiskScore();
+            score.setVisitor(visitor);
+            score.setTotalScore(scoreValue);
+            score.setRiskLevel(RiskLevelUtils.determineRiskLevel(scoreValue));
 
-        RiskScore score = new RiskScore();
-        score.setVisitor(visitor);
-        score.setTotalScore(scoreValue);
-        score.setRiskLevel(RiskLevelUtils.determineRiskLevel(scoreValue));
-        RiskRule appliedRule = riskRuleRepository.findById(ruleId)
-            .orElseThrow(() -> new ResourceNotFoundException("RiskRule not found"));
-        score.setRiskRule(appliedRule);
-
-        return riskScoreRepository.save(score);
+            return riskScoreRepository.save(score);
+        });
     }
 
     @Override
