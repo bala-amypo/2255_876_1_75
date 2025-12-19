@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 import java.util.*;
 
 @RestController
@@ -16,17 +17,26 @@ public class VisitLogController {
     }
 
     @PostMapping("/{visitorId}")
-    public VisitLog createVisitLog(@PathVariable Long visitorId, @RequestBody VisitLog log) {
-        return visitLogService.createVisitLog(visitorId, log);
-    }
+    public ResponseEntity<VisitLog> create(
+            @PathVariable Long visitorId,
+            @RequestBody VisitLog log) {
 
-    @GetMapping("/visitor/{visitorId}")
-    public List<VisitLog> getLogsByVisitor(@PathVariable Long visitorId) {
-        return visitLogService.getLogsByVisitor(visitorId);
+        return ResponseEntity.ok(
+                visitLogService.createVisitLog(visitorId, log)
+        );
     }
 
     @GetMapping("/{id}")
-    public VisitLog getLog(@PathVariable Long id) {
-        return visitLogService.getLog(id);
+    public ResponseEntity<VisitLog> get(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                visitLogService.getLog(id)
+        );
+    }
+
+    @GetMapping("/visitor/{visitorId}")
+    public ResponseEntity<List<VisitLog>> all(@PathVariable Long visitorId) {
+        return ResponseEntity.ok(
+                visitLogService.getLogsByVisitor(visitorId)
+        );
     }
 }
