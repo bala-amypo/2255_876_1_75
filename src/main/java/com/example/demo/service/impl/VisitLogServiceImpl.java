@@ -19,11 +19,11 @@ public class VisitLogServiceImpl implements VisitLogService {
     @Override
     public VisitLog createVisitLog(Long visitorId, VisitLog log) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        if (visitor != null) {
-            log.setVisitor(visitor); 
-            return visitLogRepository.save(log);
+        if (visitor == null) {
+            throw new RuntimeException("Visitor not found");
         }
-        return null;
+        log.setVisitor(visitor);
+        return visitLogRepository.save(log);
     }
 
     @Override

@@ -38,7 +38,10 @@ public class VisitLog {
 
     @PrePersist
     protected void prePersist() {
-        this.entryTime = LocalDateTime.now();
+        if (this.entryTime == null) {
+            this.entryTime = LocalDateTime.now();
+        }
+
         this.createdAt = LocalDateTime.now();
 
         if (purpose == null || purpose.isBlank()) {
@@ -51,7 +54,7 @@ public class VisitLog {
 
     @PreUpdate
     protected void preUpdate() {
-        if (exitTime != null && exitTime.isBefore(entryTime)) {
+        if (exitTime != null && !exitTime.isAfter(entryTime)) {
             throw new IllegalArgumentException("exitTime must be after entryTime");
         }
     }
