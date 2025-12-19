@@ -20,9 +20,12 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
     @Override
     public RiskScore evaluateVisitor(Long visitorId) {
-        Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        if (visitor == null) {
-            throw new RuntimeException("Visitor not found");
+        Visitor visitor = visitorRepository.findById(visitorId)
+                .orElseThrow(() -> new RuntimeException("Visitor not found"));
+
+        RiskScore existing = riskScoreRepository.findByVisitorId(visitorId);
+        if (existing != null) {
+            return existing;
         }
 
         int scoreValue = 50;
