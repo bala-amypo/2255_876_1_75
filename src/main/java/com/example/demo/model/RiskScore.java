@@ -30,6 +30,10 @@ public class RiskScore {
 
     private LocalDateTime evaluatedAt;
 
+    @OneToOne
+    @JoinColumn(name = "riskrule_id", nullable = false)
+    private RiskRule riskRule;
+
     @PrePersist
     protected void prePersist() {
         if (visitor == null) {
