@@ -24,9 +24,9 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
     @Override
     public ScoreAuditLog logScoreChange(Long visitorId, Long ruleId, ScoreAuditLog log) {
         Visitor visitor = visitorRepository.findById(visitorId)
-                .orElseThrow(() -> new RuntimeException("Visitor not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
         RiskRule rule = ruleRepository.findById(ruleId)
-                .orElseThrow(() -> new RuntimeException("Rule not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Rule not found"));
 
         if (log.getReason() == null || log.getReason().isBlank()) {
             throw new IllegalArgumentException("reason required");
@@ -50,6 +50,6 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
     @Override
     public ScoreAuditLog getLog(Long id) {
         return auditLogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Audit log not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Audit log not found"));
     }
 }

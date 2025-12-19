@@ -30,17 +30,16 @@ public class ScoreAuditLog {
     private String reason;
 
     @Column(nullable = false, updatable = false)
-private LocalDateTime loggedAt;
+    private LocalDateTime loggedAt;
 
-@PrePersist
-protected void prePersist() {
-    if (reason == null || reason.isBlank()) {
-        throw new IllegalArgumentException("reason required");
+    @PrePersist
+    protected void prePersist() {
+        if (reason == null || reason.isBlank()) {
+            throw new IllegalArgumentException("reason required");
+        }
+        if (scoreChange < 0) {
+            throw new IllegalArgumentException("scoreChange must be >= 0");
+        }
+        this.loggedAt = LocalDateTime.now();
     }
-    if (scoreChange < 0) {
-        throw new IllegalArgumentException("scoreChange must be >= 0");
-    }
-    this.loggedAt = LocalDateTime.now();
-}
-
 }
