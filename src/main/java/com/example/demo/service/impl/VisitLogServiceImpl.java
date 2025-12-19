@@ -22,7 +22,7 @@ public class VisitLogServiceImpl implements VisitLogService {
     }
 
     @Override
-    public VisitLog create(Long visitorId, VisitLog log) {
+    public VisitLog createVisitLog(Long visitorId, VisitLog log) {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
         log.setVisitor(visitor);
@@ -30,13 +30,13 @@ public class VisitLogServiceImpl implements VisitLogService {
     }
 
     @Override
-    public VisitLog get(Long id) {
+    public VisitLog getLog(Long id) {
         return visitLogRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("VisitLog not found"));
     }
 
     @Override
-    public List<VisitLog> allByVisitor(Long visitorId) {
+    public List<VisitLog> getLogsByVisitor(Long visitorId) {
         return visitLogRepository.findByVisitorId(visitorId);
     }
 }
