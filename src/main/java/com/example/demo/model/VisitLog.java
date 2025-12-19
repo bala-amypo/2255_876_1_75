@@ -37,7 +37,7 @@ public class VisitLog {
     private LocalDateTime createdAt;
 
     @PrePersist
-    protected void prePersist() {
+    public void prePersist() {
         if (this.entryTime == null) {
             this.entryTime = LocalDateTime.now();
         }
