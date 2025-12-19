@@ -41,7 +41,9 @@ public class RiskScore {
         if (riskLevel == null || riskLevel.isBlank()) {
             throw new RuntimeException("riskLevel required");
         }
-        this.evaluatedAt = LocalDateTime.now();
+        if (this.evaluatedAt == null) {
+            this.evaluatedAt = LocalDateTime.now();
+        }
     }
 
 }

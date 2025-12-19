@@ -6,5 +6,5 @@ import org.springframework.stereotype.*;
 
 @Repository
 public interface RiskScoreRepository extends JpaRepository<RiskScore, Long> {
-    Optional<RiskScore> findByVisitorId(Long visitorId);
+    RiskScore findByVisitorId(Long visitorId);
 }

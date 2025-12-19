@@ -22,7 +22,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
     public RiskScore evaluateVisitor(Long visitorId) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
         if (visitor == null) {
-            return null;
+            throw new RuntimeException("Visitor not found");
         }
 
         int scoreValue = 50;
