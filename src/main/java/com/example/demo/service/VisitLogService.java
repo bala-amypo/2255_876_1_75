@@ -4,7 +4,7 @@ import com.example.demo.model.VisitLog;
 import java.util.List;
 
 public interface VisitLogService {
-    VisitLog create(Long visitorId, VisitLog log);
-    VisitLog get(Long id);
-    List<VisitLog> allByVisitor(Long visitorId);
+    VisitLog createVisitLog(Long visitorId, VisitLog log);
+    VisitLog getLog(Long id);
+    List<VisitLog> getLogsByVisitor(Long visitorId);
 }
