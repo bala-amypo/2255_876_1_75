@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.*;
-import com.example.demo.service.*;
+import com.example.demo.model.RiskRule;
+import com.example.demo.service.RiskRuleService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 import java.util.*;
 
 @RestController
@@ -16,17 +17,23 @@ public class RiskRuleController {
     }
 
     @PostMapping
-    public RiskRule createRule(@RequestBody RiskRule rule) {
-        return riskRuleService.createRule(rule);
-    }
-
-    @GetMapping
-    public List<RiskRule> getAllRules() {
-        return riskRuleService.getAllRules();
+    public ResponseEntity<RiskRule> create(@RequestBody RiskRule rule) {
+        return ResponseEntity.ok(
+                riskRuleService.createRule(rule)
+        );
     }
 
     @GetMapping("/{id}")
-    public RiskRule getRule(@PathVariable Long id) {
-        return riskRuleService.getRule(id);
+    public ResponseEntity<RiskRule> get(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                riskRuleService.getRule(id)
+        );
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RiskRule>> all() {
+        return ResponseEntity.ok(
+                riskRuleService.getAllRules()
+        );
     }
 }
