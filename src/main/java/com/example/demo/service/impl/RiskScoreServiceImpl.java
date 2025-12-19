@@ -13,11 +13,14 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
     private final RiskScoreRepository riskScoreRepository;
     private final VisitorRepository visitorRepository;
+    private final RiskRuleRepository riskRulerRepository;
 
     public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,
-                                VisitorRepository visitorRepository) {
+                                VisitorRepository visitorRepository,
+                                RiskRuleRepository riskRulerRepository) {
         this.riskScoreRepository = riskScoreRepository;
         this.visitorRepository = visitorRepository;
+        this.riskRuleRepository = riskRulerRepository;
     }
 
     @Override
@@ -36,8 +39,10 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         score.setVisitor(visitor);
         score.setTotalScore(scoreValue);
         score.setRiskLevel(RiskLevelUtils.determineRiskLevel(scoreValue));
+        RiskRule appliedRule = riskRuleRepository.findById(ruleId)
+            .orElseThrow(() -> new ResourceNotFoundException("RiskRule not found"));
         score.setRiskRule(appliedRule);
-        
+
         return riskScoreRepository.save(score);
     }
 
