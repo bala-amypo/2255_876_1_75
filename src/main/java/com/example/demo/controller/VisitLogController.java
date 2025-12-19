@@ -34,7 +34,7 @@ public class VisitLogController {
     }
 
     @GetMapping("/visitor/{visitorId}")
-    public ResponseEntity<List<VisitLog>> all(@PathVariable Long visitorId) {
+    public ResponseEntity<List<VisitLog>> listByVisitor(@PathVariable Long visitorId) {
         return ResponseEntity.ok(
                 visitLogService.getLogsByVisitor(visitorId)
         );
