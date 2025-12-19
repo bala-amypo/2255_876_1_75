@@ -39,9 +39,6 @@ public class ScoreAuditLog {
         if (appliedRule == null) {
             throw new RuntimeException("appliedRule required");
         }
-        if (scoreChange == 0) {
-            throw new RuntimeException("scoreChange cannot be 0");
-        }
         if (reason == null || reason.isBlank()) {
             throw new RuntimeException("reason required");
         }
