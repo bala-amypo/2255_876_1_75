@@ -20,13 +20,14 @@ public class VisitorController {
         return visitorService.createVisitor(visitor);
     }
 
-    @GetMapping
-    public List<Visitor> all() {
-        return visitorService.getAllVisitors();
-    }
-
     @GetMapping("/{id}")
-    public Visitor getVisitorById(@PathVariable Long id) {
-        return visitorService.getVisitor(id);
-    }
+public ResponseEntity<Visitor> get(@PathVariable Long id) {
+    return ResponseEntity.ok(visitorService.getVisitor(id));
+}
+
+@GetMapping
+public ResponseEntity<List<Visitor>> all() {
+    return ResponseEntity.ok(visitorService.getAllVisitors());
+}
+
 }
