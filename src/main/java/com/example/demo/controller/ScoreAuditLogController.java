@@ -5,7 +5,9 @@ import com.example.demo.service.ScoreAuditLogService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import java.util.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Score Audit Log Controller")
 @RestController
 @RequestMapping("/api/score-logs")
 public class ScoreAuditLogController {

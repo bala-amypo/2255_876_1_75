@@ -5,7 +5,9 @@ import com.example.demo.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Visitor Controller")
 @RestController
 @RequestMapping("/api/visitors")
 public class VisitorController {

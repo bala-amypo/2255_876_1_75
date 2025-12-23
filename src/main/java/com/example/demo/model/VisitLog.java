@@ -44,12 +44,6 @@ public class VisitLog {
 
         this.createdAt = LocalDateTime.now();
 
-        if (purpose == null || purpose.isBlank()) {
-            throw new IllegalArgumentException("purpose is required");
-        }
-        if (location == null || location.isBlank()) {
-            throw new IllegalArgumentException("location is required");
-        }
     }
 
     @PreUpdate

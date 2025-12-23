@@ -5,7 +5,9 @@ import com.example.demo.model.*;
 import com.example.demo.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Auth Controller")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
