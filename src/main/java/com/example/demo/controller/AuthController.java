@@ -6,6 +6,7 @@ import com.example.demo.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 
 @Tag(name = "Auth Controller")
 @RestController
@@ -20,11 +21,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
-        try {
-            return ResponseEntity.ok(userService.register(request));
-        } catch (RuntimeException ex) {
-            return ResponseEntity.badRequest().build();
-        }
+        User user = userService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PostMapping("/login")
