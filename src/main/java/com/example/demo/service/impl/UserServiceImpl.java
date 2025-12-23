@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(RegisterRequest request) {
 
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Email already exists"
