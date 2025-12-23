@@ -22,14 +22,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
-        try {
-            User user = userService.register(request);
-            return ResponseEntity.ok(user);
-        } catch (ResponseStatusException ex) {
-            return ResponseEntity
-                    .status(ex.getStatusCode())
-                    .body(ex.getReason());
-        }
+        return ResponseEntity.ok(userService.register(request));
     }
 
     @PostMapping("/login")
