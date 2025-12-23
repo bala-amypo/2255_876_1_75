@@ -53,7 +53,7 @@ public class VisitLog {
     }
 
     @PreUpdate
-    protected void preUpdate() {
+    public void preUpdate() {
         if (exitTime != null && !exitTime.isAfter(entryTime)) {
             throw new IllegalArgumentException("exitTime must be after entryTime");
         }
