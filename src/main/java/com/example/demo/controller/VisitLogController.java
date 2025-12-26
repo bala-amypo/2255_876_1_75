@@ -19,6 +19,7 @@ public class VisitLogController {
         this.visitLogService = visitLogService;
     }
 
+    @PreAuthorize("hasAnyRole('STAFF','ADMIN')")
     @PostMapping("/{visitorId}")
     public ResponseEntity<VisitLog> create(@PathVariable Long visitorId, @RequestBody VisitLog log) {
         VisitLog created = visitLogService.createVisitLog(visitorId, log);
