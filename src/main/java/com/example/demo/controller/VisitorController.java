@@ -18,13 +18,11 @@ public class VisitorController {
         this.visitorService = visitorService;
     }
 
-    @PreAuthorize("hasRole('STAFF')")
     @PostMapping
     public ResponseEntity<Visitor> create(@RequestBody Visitor visitor) {
         return ResponseEntity.ok(visitorService.createVisitor(visitor));
     }
 
-    @PreAuthorize("hasRole('STAFF')")
     @GetMapping("/{id}")
     public ResponseEntity<Visitor> get(@PathVariable Long id) {
         return ResponseEntity.ok(visitorService.getVisitor(id));
