@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import java.util.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Tag(name = "Risk Rule Controller")
 @RestController
@@ -17,7 +18,8 @@ public class RiskRuleController {
     public RiskRuleController(RiskRuleService riskRuleService) {
         this.riskRuleService = riskRuleService;
     }
-
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<RiskRule> create(@RequestBody RiskRule rule) {
         return ResponseEntity.ok(
