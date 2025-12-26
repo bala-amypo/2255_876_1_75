@@ -3,6 +3,11 @@ package com.example.demo.security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.io.*;
+import java.util.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import io.jsonwebtoken.Claims;
 
 public class JwtAuthenticationFilter implements Filter {
 
