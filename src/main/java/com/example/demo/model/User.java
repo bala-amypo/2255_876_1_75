@@ -3,6 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @JsonIgnore
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

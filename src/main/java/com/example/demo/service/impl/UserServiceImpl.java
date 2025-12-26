@@ -53,7 +53,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponse login(AuthRequest request) {
-        return new AuthResponse("dummy-token", request.getEmail(), Set.of("ROLE_USER"));
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.UNAUTHORIZED,
+                        "Invalid credentials"
+                ));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid credentials"
+            );
+        }
+
+        String token = jwtTokenProvider.createToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return new AuthResponse(token, user.getEmail(), user.getRole());
     }
 
     @Override
