@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ public class JwtAuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
+        SecurityContextHolder.clearContext();
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String header = httpRequest.getHeader("Authorization");
 
@@ -33,9 +36,17 @@ public class JwtAuthenticationFilter implements Filter {
                 Claims claims = jwtTokenProvider.getClaims(token);
 
                 String email = claims.getSubject();
-                Set<String> roles = claims.get("roles", Set.class);
 
-                var authorities = roles.stream()
+                Set<String> roleSet = new HashSet<>();
+                Object rolesObj = claims.get("roles");
+
+                if (rolesObj instanceof Iterable<?>) {
+                    for (Object r : (Iterable<?>) rolesObj) {
+                        roleSet.add(r.toString());
+                    }
+                }
+
+                var authorities = roleSet.stream()
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toSet());
 
